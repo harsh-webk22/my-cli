@@ -2,12 +2,21 @@
 
 const yargs = require("yargs");
 const fs = require('fs');
-const utils = require("./utils");
+const path = require("path");
 
-const argv = yargs.argv
+const argv = process.argv[0];
 
-fs.mkdirSync(`$${process.cwd()}/testCli`);
-const data = fs.readFileSync(`${__dirname}/utils.js`)
-fs.writeFileSync(`${process.cwd()}/testCli/demo.js` ,data);
+var dirPath = path.join(process.cwd() ,"testCli");
+var ReadFilePath = path.join(__dirname , "../project")
+fs.mkdirSync(dirPath)
 
-console.log("Saved!");
+const files = ["index.js" , "package.json"]
+
+files.map((file)=>{
+    var data = fs.readFileSync(`${ReadFilePath}/${file}`);
+    fs.writeFileSync(`${dirPath}/${file}` ,data);
+    console.log(`${file} saved`);
+})
+
+
+
